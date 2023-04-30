@@ -2,20 +2,41 @@
 #define IPTVPLAYER_H
 
 #include <QMainWindow>
+#include "../gstreamer/gstreamermanager.h"
+#include "qlabel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class IPTVPlayer; }
 QT_END_NAMESPACE
 
-class IPTVPlayer : public QMainWindow
+class IPTVPlayer : public QMainWindow, public GSTreamerManager
 {
     Q_OBJECT
 
 public:
     IPTVPlayer(QWidget *parent = nullptr);
     ~IPTVPlayer();
+    // Getters
+    QLabel* getVideoDisplay() const;
+    bool isPlaying()
+    {
+        return playing;
+    }
+    // Setters
+    void setPlayStatus(bool status)
+    {
+        playing = status;
+    }
 
 private:
     Ui::IPTVPlayer *ui;
+    GSTreamerManager gstmanager;
+    bool playing = false;
+    WId lbId;
+
+
+private slots:
+    void runStreamPressed();
+    void stopStreamPressed();
 };
 #endif // IPTVPLAYER_H
