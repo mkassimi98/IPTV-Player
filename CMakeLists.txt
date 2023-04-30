@@ -11,13 +11,29 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GST REQUIRED gstreamer-1.0)
+pkg_check_modules(GST_VIDEO REQUIRED gstreamer-video-1.0)
+
 
 set(PROJECT_SOURCES
         utils/main.cpp
         src/gui/iptvplayer.cpp
         src/gui/iptvplayer.h
         src/gui/iptvplayer.ui
+        src/gstreamer/gstreamermanager.h
+        src/gstreamer/gstreamermanager.cpp
 )
+include_directories(
+        /usr/lib/x86_64-linux-gnu/glib-2.0/include
+        /usr/include/glib-2.0
+        /usr/include/gstreamer-1.0
+        /usr/local/include/libsoup-2.4
+        /usr/local/include/json-glib-1.0
+        ${GST_VIDEO_LIBRARIES}
+        ${GST_INCLUDE_DIRS})
+
+link_directories(${GST_LIBRARY_DIRS})
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(IPTV-Player
@@ -42,7 +58,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(IPTV-Player PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(IPTV-Player PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${GST_LIBRARIES} ${GST_VIDEO_LIBRARIES})
 
 set_target_properties(IPTV-Player PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
