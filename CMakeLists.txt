@@ -15,7 +15,6 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(GST REQUIRED gstreamer-1.0)
 pkg_check_modules(GST_VIDEO REQUIRED gstreamer-video-1.0)
 
-
 set(PROJECT_SOURCES
         utils/main.cpp
         src/gui/iptvplayer.cpp
@@ -23,6 +22,8 @@ set(PROJECT_SOURCES
         src/gui/iptvplayer.ui
         src/gstreamer/gstreamermanager.h
         src/gstreamer/gstreamermanager.cpp
+        src/gui/channelselectiondialog.h
+        src/gui/channelselectiondialog.cpp
 )
 include_directories(
         /usr/lib/x86_64-linux-gnu/glib-2.0/include

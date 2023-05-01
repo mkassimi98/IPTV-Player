@@ -16,7 +16,14 @@ void GSTreamerManager::configureGst()
         // Initialize GStreamer
         gst_init(NULL, NULL);
         // Create the pipeline
-        pipeline = gst_parse_launch("souphttpsrc location=http://shurtorotv.com:8080/Mosin/5Dv7D8TWHwRv/2753 ! decodebin name=decodebin ! videoscale ! videoconvert ! ximagesink name=videosink decodebin. ! queue ! audioconvert ! autoaudiosink", NULL);
+        pipeline = gst_parse_launch("souphttpsrc location=http://shurtorotv.com:8080/Mosin/5Dv7D8TWHwRv/2753 ! "
+                                    "decodebin name=decodebin ! "
+                                    "videoscale ! "
+                                    "videoconvert ! "
+                                    "ximagesink name=videosink decodebin. ! "
+                                    "queue ! "
+                                    "audioconvert ! "
+                                    "autoaudiosink", NULL);
 
         videosink = gst_bin_get_by_name(GST_BIN(pipeline), "videosink");
         // Get the bus
