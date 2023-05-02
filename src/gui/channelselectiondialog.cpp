@@ -29,7 +29,8 @@ ChannelSelectionDialog::ChannelSelectionDialog(QWidget *parent) : QDialog(parent
     file.close();
 
     // Conectar la señal itemDoubleClicked a la slot doubleClicked
-    connect(m_listWidget, &QListWidget::itemDoubleClicked, this, &ChannelSelectionDialog::onChannelListDoubleClicked);
+    connect(m_listWidget, &QListWidget::itemDoubleClicked, this, &ChannelSelectionDialog::doubleClicked);
+    //connect(m_listWidget, &QListWidget::itemDoubleClicked, this, &IPTVPlayer::printUri);
 
     // Configurar la ventana
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -37,20 +38,20 @@ ChannelSelectionDialog::ChannelSelectionDialog(QWidget *parent) : QDialog(parent
     setWindowTitle("Channels");
 }
 
-//void ChannelSelectionDialog::doubleClicked(QListWidgetItem *item)
-//{
-//    // Obtener la URI del canal seleccionado y cerrar el cuadro de diálogo
-//    QString uri = item->data(Qt::UserRole).toString();
-//    qDebug()<< "Esta es la Uri seleccionada: " << uri;
-//    close();
-
-//    // Enviar la URI a la clase Gstreamer para su reproducción
-//    // ...
-//}
-
-void ChannelSelectionDialog::onChannelListDoubleClicked(QModelIndex index)
+void ChannelSelectionDialog::doubleClicked(QListWidgetItem *item)
 {
-    m_selectedUri = m_channelsModel->data(index).toString();
-    emit channelSelected(m_selectedUri);
-    accept();
+    // Obtener la URI del canal seleccionado y cerrar el cuadro de diálogo
+    QString uri = item->data(Qt::UserRole).toString();
+    emit channelSelected(uri);
+    qDebug()<< "Esta es la Uri seleccionada: " << uri;
+
+    // Enviar la URI a la clase Gstreamer para su reproducción
+    // ...
 }
+
+//void ChannelSelectionDialog::onChannelListDoubleClicked(QModelIndex index)
+//{
+//    m_selectedUri = m_channelsModel->data(index).toString();
+//    emit channelSelected(m_selectedUri);
+//    accept();
+//}

@@ -21,8 +21,8 @@ private:
     QString m_selectedUri;
 
 public slots:
-//    void doubleClicked(QListWidgetItem *item);
-    void onChannelListDoubleClicked(QModelIndex index);
+    void doubleClicked(QListWidgetItem *item);
+//    void onChannelListDoubleClicked(QModelIndex index);
 };
 
 #endif // CHANNELSELECTIONDIALOG_H

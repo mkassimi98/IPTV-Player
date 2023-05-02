@@ -2,24 +2,29 @@
 #define GSTREAMERMANAGER_H
 #include "qwindowdefs.h"
 #include <gst/gst.h>
-#include "gst/video/videooverlay.h"
+#include <QThread>
 
 
-class GSTreamerManager
+class GSTreamerManager : public QThread
 {
+    Q_OBJECT
 public:
-    GSTreamerManager();
-    ~GSTreamerManager() {stopStream();};
-    void startStream();
-    void stopStream();
+    GSTreamerManager(QObject* parent = nullptr);
+    ~GSTreamerManager() {stop(); gst_deinit();};
+    void stop();
     void setWinid(WId windowId);
-private:
     void configureGst();
-    GstElement *pipeline,
-                *videosink;
-    GstBus *bus;
-    GMainLoop *loop;
-    WId winId;
+    void setChannelSource(const std::string& url);
+
+protected:
+    void run() override;
+private:
+    GstElement  *pipeline,
+                *videosink,
+                *source;
+    GstBus      *bus;
+    GMainLoop   *loop;
+    WId         winId;
 };
 
 #endif // GSTREAMERMANAGER_H
