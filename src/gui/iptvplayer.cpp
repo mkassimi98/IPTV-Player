@@ -10,6 +10,8 @@ IPTVPlayer::IPTVPlayer(QWidget *parent)
 {
     ui->setupUi(this);
     gstmanager = new GSTreamerManager(this);
+    lbId = ui->lb_videoDisplay->winId();
+    gstmanager->setWinid(&lbId);
     dialog.hide();
     connect(ui->pb_play, &QPushButton::clicked, this, &IPTVPlayer::runStreamPressed);
     connect(ui->pb_stop, &QPushButton::clicked, this, &IPTVPlayer::stopStreamPressed);
@@ -28,9 +30,7 @@ IPTVPlayer::~IPTVPlayer()
 
 void IPTVPlayer::runStreamPressed()
 {
-    lbId = ui->lb_videoDisplay->winId();
-    gstmanager->setWinid(lbId);
-    gstmanager->configureGst();
+//    gstmanager->configureGst();
     gstmanager->start();
 }
 
@@ -72,7 +72,8 @@ void IPTVPlayer::showChannelSelectionDialog()
 void IPTVPlayer::printUri(QString uri)
 {
 //    gstmanager->stop();
-    gstmanager->setChannelSource(uri.toStdString());
+//    gstmanager->setChannelSource(uri.toStdString());
+    gstmanager->setChannelSource(uri);
 //    gstmanager->start();
     qDebug() << "[IPTVPlayer::printUri] Esta es la Uri de la señal: " << uri;
 }
