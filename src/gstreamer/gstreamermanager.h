@@ -25,7 +25,7 @@ private:
 //    GMainLoop   *loop;
     GMutex      _pipeline_mutex;
     WId         *winId;
-    QString     _location = "http://shurtorotv.com:8080/Mosin/5Dv7D8TWHwRv/111";
+    QString     _location;
     void refresh();
 };
 

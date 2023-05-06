@@ -11,6 +11,7 @@ class ChannelSelectionDialog : public QDialog
     Q_OBJECT
 public:
     explicit ChannelSelectionDialog(QWidget *parent = nullptr);
+    void setFilePath(QString *file);
 
 signals:
     void channelSelected(QString uri);
@@ -19,10 +20,10 @@ private:
     QListWidget *m_listWidget;
     QStringListModel *m_channelsModel;
     QString m_selectedUri;
+    QString *_filePath;
 
 public slots:
     void doubleClicked(QListWidgetItem *item);
-//    void onChannelListDoubleClicked(QModelIndex index);
 };
 
 #endif // CHANNELSELECTIONDIALOG_H

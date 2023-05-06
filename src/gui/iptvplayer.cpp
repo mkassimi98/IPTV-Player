@@ -48,7 +48,7 @@ void IPTVPlayer::selectPlaylistFile()
 {
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::ExistingFile); // Only allow to choose one file
-    dialog.setNameFilter(tr("Playlists files (*.m3u)")); // Filter of diles
+    dialog.setNameFilter(tr("Playlists files (*.m3u)")); // Filter of files
     
     QStringList fileNames;
     if (dialog.exec()) {
@@ -61,6 +61,7 @@ void IPTVPlayer::selectPlaylistFile()
 
 void IPTVPlayer::showChannelSelectionDialog()
 {
+    dialog.setFilePath(&filePath);
     dialog.show();
     if (dialog.exec() == QDialog::Accepted) {
         // El usuario ha seleccionado un canal y ha cerrado el cuadro de diálogo
