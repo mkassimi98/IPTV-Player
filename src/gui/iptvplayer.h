@@ -3,13 +3,15 @@
 
 #include <QMainWindow>
 #include "../gstreamer/gstreamermanager.h"
+#include "channelselectiondialog.h"
 #include "qlabel.h"
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class IPTVPlayer; }
 QT_END_NAMESPACE
 
-class IPTVPlayer : public QMainWindow, public GSTreamerManager
+class IPTVPlayer : public QMainWindow
 {
     Q_OBJECT
 
@@ -30,13 +32,19 @@ public:
 
 private:
     Ui::IPTVPlayer *ui;
-    GSTreamerManager gstmanager;
+    GSTreamerManager *gstmanager;
     bool playing = false;
     WId lbId;
+    QString filePath;
+    ChannelSelectionDialog dialog;
+
 
 
 private slots:
     void runStreamPressed();
     void stopStreamPressed();
+    void selectPlaylistFile();
+    void showChannelSelectionDialog();
+    void printUri(QString uri);
 };
 #endif // IPTVPLAYER_H
